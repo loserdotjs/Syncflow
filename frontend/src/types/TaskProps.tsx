@@ -1,9 +1,10 @@
-type TaskProps = {
-  id: number;
-  title?: string;
-  description?: string;
-  priority: "low" | "medium" | "high";
-  status: "to do" | "in progress" | "done";
-};
+export type Priority = "low" | "medium" | "high";
+export type Status = "to_do" | "in_progress" | "done";
 
-export type { TaskProps as default };
+export type TaskProps = {
+  id: number;
+  title: string;
+  description?: string;
+  priority: Priority;
+  status: Status;
+};

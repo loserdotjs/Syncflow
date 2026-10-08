@@ -1,39 +1,28 @@
 import { useState } from "react";
-import type TaskCardProps from "../../types/TaskProps";
+import type { TaskProps } from "../../types/TaskProps";
 
-function TaskCard(props: TaskCardProps) {
-  const [isExpand, setIsExpand] = useState(false);
+function TaskCard({ id, title, description, priority, status }: TaskProps) {
+  const [isExpand, setIsExpanded] = useState(false);
 
   return (
     <div
-      onClick={() => setIsExpand(!isExpand)}
-      className="task-card h-fit border-solid border-purple-500 border-3 shadow-xl rounded-lg p-4"
-      style={TaskCardStyle(props.priority)}
+      onClick={() => setIsExpanded(!isExpand)}
+      className="h-fit border-solid border-3 shadow-xl rounded-lg p-4"
+      style={getPriorityStyle(priority)}
     >
-      {props.title ? (
-        <h3 className="task-card-title">{props.title}</h3>
-      ) : (
-        <h3 className="task-card-title">No title available.</h3>
-      )}
-
+      <h3>ticket n*{id}</h3>
+      <h3>{title}</h3>
       {isExpand &&
-        (props.description ? (
-          <p className="task-card-description">{props.description}</p>
-        ) : (
-          <p className="task-card-description">No description available.</p>
-        ))}
-
-      <div className="task-card-details flex gap-2">
-        <button className="task-card-priority">
-          Priority: {props.priority}
-        </button>
-        <button className="task-card-status">Status: {props.status}</button>
+        (description ? <p>{description}</p> : <p>No description available.</p>)}
+      <div className="flex gap-2">
+        <span>Priority: {priority}</span>
+        <span>Status: {status}</span>
       </div>
     </div>
   );
 }
 
-function TaskCardStyle(priority: "low" | "medium" | "high") {
+function getPriorityStyle(priority: "low" | "medium" | "high") {
   switch (priority) {
     case "low":
       return { backgroundColor: "lightgreen", borderColor: "green" };
